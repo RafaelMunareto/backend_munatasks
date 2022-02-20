@@ -19,7 +19,7 @@ const upload = multer(uploadConfig);
     if(!id){
       return res.status(400).json({ error: "Id do usuário é obrigatorio." });
     }
-    req.id = id;
+    req.id = id; 
     return next();
   }
 
