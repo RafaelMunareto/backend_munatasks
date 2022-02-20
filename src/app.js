@@ -1,6 +1,9 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import routes from './routes';
+import user_routes from './routes/user.routes';
+import etiqueta_routes from './routes/etiquetas.routes';
+import path from 'path';
 
 class App{
 
@@ -17,11 +20,17 @@ class App{
   }
 
   middlewares(){
+    this.server.use(
+      '/files',
+      express.static(path.resolve(__dirname, '..', 'uploads'))
+    );
     this.server.use(express.json());
   }
 
   routes(){
     this.server.use(routes);
+    this.server.use(user_routes);
+    this.server.use(etiqueta_routes);
   }
 
 }
