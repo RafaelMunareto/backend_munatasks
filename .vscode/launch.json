@@ -11,5 +11,24 @@
             "url": "http://localhost:3333",
             "webRoot": "${workspaceFolder}"
         }
-    ]
+    ],
+    "eslint.autoFixOnSave": true,
+    "eslint.validate": [
+      {
+        "language": "javascript",
+        "autoFix": true
+      },
+      {
+        "language": "javascriptreact",
+        "autofix": true
+      },
+      {
+        "language": "typescript",
+        "autofix": true
+      },
+      {
+        "language": "typescriptreact",
+        "autofix": true
+      },
+    ],
 }

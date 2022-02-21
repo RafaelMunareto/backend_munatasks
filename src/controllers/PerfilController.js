@@ -1,71 +1,78 @@
 
 
-import User from '../models/User';
+import Perfil from '../models/Perfil';
 import * as Yup from 'yup';
-class UserController{
+
+class PerfilController{
 
   async index(req, res) {
-    let data = await User.find();
+    let data = await Perfil.find();
     return res.json(data);
   }
 
   async show(req, res) {
-    let data = await User.findById(req.id);
+    let data = await Perfil.findById(req.id);
     return res.json(data);
   }
 
   async store(req, res){
-
     const { filename } = req.file;
-    const { email, name, verificado } = req.body;
+    const { idStaff, name, nameTime, manager } = req.body;
     const schema = Yup.object().shape({
+      // idStaff: Yup.array().required(),
       name: Yup.string().min(3).required(),
-      email: Yup.string().email().required(),
-      verificado: Yup.boolean().required(),
+      nameTime: Yup.string().min(3).required(),
+      manager: Yup.boolean().required()
     });
 
     if(!(await schema.isValid(req.body))){
       return res.status(400).json({ error: 'Falha na validação.' });
     }
 
-    const user = await User.create({
+    const perfil = await Perfil.create({
       urlImage: filename,
-      email,
+      idStaff,
       name,
-      verificado,
+      nameTime,
+      manager
     });
 
-    return res.json(user);
+    return res.json(perfil);
 
   }
 
   async update(req, res) {
     const { filename } = req.file;
-    const { email, name, verificado } = req.body;
+    const { idStaff, name, nameTime, manager } = req.body;
+
     const schema = Yup.object().shape({
+      idStaff: Yup.array().required(),
       name: Yup.string().min(3).required(),
-      email: Yup.string().email().required(),
-      verificado: Yup.boolean().required(),
+      nameTime: Yup.string().min(3).required(),
+      manager: Yup.boolean().required()
     });
 
     if(!(await schema.isValid(req.body))){
       return res.status(400).json({ error: 'Falha na validação.' });
     }
-    const user = await User.updateOne({ _id: req.id }, {
+
+    const perfil = await Perfil.updateOne({ _id: req.id }, {
       urlImage: filename,
-      email,
+      idStaff,
       name,
-      verificado,
+      nameTime,
+      manager
     });
 
-    return res.json(user);
+    return res.json(perfil);
   }
 
   async destroy(req, res) {
-    await User.findByIdAndDelete({_id: req.id});
+    await Perfil.findByIdAndDelete({_id: req.id});
     return res.json("Deletado com sucesso!");
+
   }
 
 }
 
-export default new UserController();
+export default new PerfilController();

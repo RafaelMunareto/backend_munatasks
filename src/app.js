@@ -3,7 +3,9 @@ import mongoose from 'mongoose';
 import routes from './routes';
 import user_routes from './routes/user.routes';
 import etiqueta_routes from './routes/etiquetas.routes';
+import perfil_routes from './routes/perfil.routes';
 import path from 'path';
+import cors from 'cors';
 
 class App{
 
@@ -20,6 +22,7 @@ class App{
   }
 
   middlewares(){
+    this.server.use(cors());
     this.server.use(
       '/files',
       express.static(path.resolve(__dirname, '..', 'uploads'))
@@ -31,6 +34,7 @@ class App{
     this.server.use(routes);
     this.server.use(user_routes);
     this.server.use(etiqueta_routes);
+    this.server.use(perfil_routes);
   }
 
 }
