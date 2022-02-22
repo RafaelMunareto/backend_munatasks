@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 class UserController{
 
   async index(req, res) {
-    let data = await User.find();
+    let data = await User.find().populate('name');
     return res.json(data);
   }
 

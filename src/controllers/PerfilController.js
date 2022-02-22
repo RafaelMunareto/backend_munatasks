@@ -1,17 +1,18 @@
 
 
 import Perfil from '../models/Perfil';
+import User from '../models/User';
 import * as Yup from 'yup';
 
 class PerfilController{
 
   async index(req, res) {
-    let data = await Perfil.find();
+    let data = await Perfil.find().populate('name').populate('idStaff');
     return res.json(data);
   }
 
   async show(req, res) {
-    let data = await Perfil.findById(req.id);
+    let data = await Perfil.findById(req.id).populate('name').populate('idStaff');
     return res.json(data);
   }
 
@@ -19,7 +20,7 @@ class PerfilController{
     const { filename } = req.file;
     const { idStaff, name, nameTime, manager } = req.body;
     const schema = Yup.object().shape({
-      // idStaff: Yup.array().required(),
+      idStaff: Yup.array().required(),
       name: Yup.string().min(3).required(),
       nameTime: Yup.string().min(3).required(),
       manager: Yup.boolean().required()

@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 
 const PerfilSchema = new Schema({
-  idStaff: [{ type : Schema.Types.ObjectId, ref: 'User' }],
+  idStaff: { type : Schema.Types.ObjectId, ref: 'User' },
   manager: Boolean,
   name: { type: Schema.Types.ObjectId, ref: 'User'},
   nameTime: String,

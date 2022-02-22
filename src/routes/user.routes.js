@@ -2,7 +2,6 @@ import { Router } from 'express';
 import multer from 'multer';
 import uploadConfig from '../config/upload';
 import UserController from '../controllers/UserController';
-import User from '../models/User';
 
 const routes = new Router();
 const upload = multer(uploadConfig);
@@ -19,7 +18,7 @@ const upload = multer(uploadConfig);
     if(!id){
       return res.status(400).json({ error: "Id do usuário é obrigatorio." });
     }
-    req.id = id; 
+    req.id = id;
     return next();
   }
 
