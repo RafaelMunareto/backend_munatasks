@@ -1,14 +1,14 @@
-import Etiquetas from "../models/Etiquetas";
 import * as Yup from 'yup';
+import Etiquetas from '../models/Etiquetas';
 
 class EtiquetasController {
   async index(req, res) {
-    let data = await Etiquetas.find();
+    const data = await Etiquetas.find();
     return res.json(data);
   }
 
   async show(req, res) {
-    let data = await Etiquetas.findById(req.id);
+    const data = await Etiquetas.findById(req.id);
     return res.json(data);
   }
 
@@ -23,14 +23,14 @@ class EtiquetasController {
 
     let etiquetaCheck = await Etiquetas.findOne({ etiqueta });
 
-    if(!(await schema.isValid(req.body))){
+    if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Falha na validação.' });
     }
 
     if (!etiquetaCheck) {
       etiquetaCheck = await Etiquetas.create(etiquetaBody);
     }
-    return res.json("Etiqueta " + etiquetaCheck.etiqueta + " Salva com sucesso");
+    return res.json(`Etiqueta ${etiquetaCheck.etiqueta} Salva com sucesso`);
   }
 
   async update(req, res) {
@@ -41,7 +41,7 @@ class EtiquetasController {
       icon: Yup.number().required(),
     });
 
-    if(!(await schema.isValid(req.body))){
+    if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Falha na validação.' });
     }
 
@@ -50,8 +50,8 @@ class EtiquetasController {
   }
 
   async destroy(req, res) {
-    await Etiquetas.findByIdAndDelete({_id: req.id});
-    return res.json("Deletado com sucesso!");
+    await Etiquetas.findByIdAndDelete({ _id: req.id });
+    return res.json('Deletado com sucesso!');
   }
 }
 
