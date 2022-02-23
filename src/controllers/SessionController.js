@@ -7,14 +7,12 @@ class SessionController {
   async store(req, res) {
     const { email, password } = req.body;
 
-    // Verificando se esse email existe
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({ error: 'Usuario não existe.' });
     }
 
-    // Verificar se a senha nao bate.
-    if (!(await user.checkPassword(password))) {
+    if (!(await user.validatePassword(password))) {
       return res.status(401).json({ error: 'Senha incorreta.' });
     }
 
@@ -26,9 +24,7 @@ class SessionController {
         name,
         email,
       },
-      token: jwt.sign({ id }, authConfig.secret, {
-        expiresIn: authConfig.expiresIn,
-      }),
+      token: jwt.sign({ id }, authConfig.secret),
     });
   }
 }

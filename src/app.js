@@ -2,7 +2,6 @@ import express from 'express';
 import mongoose from 'mongoose';
 import path from 'path';
 import cors from 'cors';
-import routes from './routes';
 import user_routes from './routes/user.routes';
 import etiqueta_routes from './routes/etiquetas.routes';
 import perfil_routes from './routes/perfil.routes';
@@ -33,7 +32,6 @@ class App {
   }
 
   routes() {
-    this.server.use(routes);
     this.server.use(user_routes);
     this.server.use(etiqueta_routes);
     this.server.use(perfil_routes);

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import EtiquetasController from '../controllers/EtiquetasController';
-// import authMiddleware from '../middlewares/auth';
+import authMiddleware from '../middlewares/auth';
 
 const routes = new Router();
 
@@ -20,7 +20,7 @@ function checkIdEtiqueta(req, res, next) {
   return next();
 }
 
-// routes.use(authMiddleware);
+routes.use(authMiddleware);
 routes.get('/etiquetas', EtiquetasController.index);
 routes.get('/etiquetas/:id', checkIdEtiqueta, EtiquetasController.show);
 routes.post('/etiquetas', EtiquetasController.store);

@@ -1,8 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 import uploadConfig from '../config/upload';
-
-// import authMiddleware from '../middlewares/auth';
+import authMiddleware from '../middlewares/auth';
 import SessionController from '../controllers/SessionController';
 import UserController from '../controllers/UserController';
 
@@ -22,7 +21,7 @@ function checkIdUSer(req, res, next) {
 routes.post('/sessions', SessionController.store);
 routes.post('/usuarios', UserController.store);
 
-// routes.use(authMiddleware);
+routes.use(authMiddleware);
 routes.get('/usuarios', UserController.index);
 routes.get('/usuarios/:id', checkIdUSer, UserController.show);
 routes.put(

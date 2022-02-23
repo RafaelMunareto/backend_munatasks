@@ -2,7 +2,7 @@ import { Router } from 'express';
 import multer from 'multer';
 import uploadConfig from '../config/upload';
 import PerfilController from '../controllers/PerfilController';
-// import authMiddleware from '../middlewares/auth';
+import authMiddleware from '../middlewares/auth';
 
 const routes = new Router();
 const upload = multer(uploadConfig);
@@ -22,7 +22,7 @@ function checkId(req, res, next) {
   req.id = id;
   return next();
 }
-// routes.use(authMiddleware);
+routes.use(authMiddleware);
 routes.get('/perfil', PerfilController.index);
 routes.get('/perfil/:id', checkId, PerfilController.show);
 routes.post(
