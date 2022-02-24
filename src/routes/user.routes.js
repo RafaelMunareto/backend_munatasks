@@ -1,11 +1,11 @@
-import { Router } from 'express';
-import multer from 'multer';
-import uploadConfig from '../config/upload';
-import authMiddleware from '../middlewares/auth';
-import SessionController from '../controllers/SessionController';
-import UserController from '../controllers/UserController';
+const express = require('express');
+const multer = require('multer');
+const uploadConfig = require('../config/upload');
+const authMiddleware = require('../middlewares/auth');
+const SessionController = require('../controllers/SessionController');
+const UserController = require('../controllers/UserController');
 
-const routes = new Router();
+const routes = express.Router();
 const upload = multer(uploadConfig);
 
 function checkIdUSer(req, res, next) {

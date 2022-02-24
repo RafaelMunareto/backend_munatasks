@@ -1,4 +1,4 @@
-import Settings from '../models/Settings';
+const Settings = require('../models/Settings');
 
 class SettingsController {
   async index(req, res) {

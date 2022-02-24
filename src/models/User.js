@@ -1,7 +1,7 @@
-import bcrypt from 'bcryptjs/dist/bcrypt';
-import { Schema, model } from 'mongoose';
+const bcrypt = require('bcryptjs/dist/bcrypt');
+const mongo = require('mongoose');
 
-const UserSchema = new Schema(
+const UserSchema = new mongo.Schema(
   {
     email: String,
     name: String,
@@ -28,4 +28,4 @@ UserSchema.methods.validatePassword = async function validatePassword(data) {
   return bcrypt.compare(data, this.password);
 };
 
-export default model('User', UserSchema);
+export default mongo.model('User', UserSchema);

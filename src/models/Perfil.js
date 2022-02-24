@@ -1,10 +1,10 @@
-import { Schema, model } from 'mongoose';
+const mongo = require('mongoose');
 
-const PerfilSchema = new Schema(
+const PerfilSchema = new mongo.Schema(
   {
-    idStaff: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    idStaff: [{ type: mongo.Schema.Types.ObjectId, ref: 'User' }],
     manager: Boolean,
-    name: { type: Schema.Types.ObjectId, ref: 'User' },
+    name: { type: mongo.Schema.Types.ObjectId, ref: 'User' },
     nameTime: String,
     urlImage: String,
   },
@@ -19,4 +19,4 @@ PerfilSchema.virtual('PerfilUrlImage').get(function () {
   return `http://localhost:3333/files/${this.urlImage}`;
 });
 
-export default model('Perfil', PerfilSchema);
+export default mongo.model('Perfil', PerfilSchema);

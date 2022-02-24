@@ -1,5 +1,5 @@
-import * as Yup from 'yup';
-import Perfil from '../models/Perfil';
+const Yup = require('yup');
+const Perfil = require('../models/Perfil');
 
 class PerfilController {
   async index(req, res) {

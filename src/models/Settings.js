@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose';
+const mongo = require('mongoose');
 
-const SettingsSchema = new Schema(
+const SettingsSchema = new mongo.Schema(
   {
     color: [String],
     fase: [{ color: String, name: String, icon: Number, status: String }],
@@ -17,4 +17,4 @@ const SettingsSchema = new Schema(
   }
 );
 
-export default model('Settings', SettingsSchema);
+export default mongo.model('Settings', SettingsSchema);

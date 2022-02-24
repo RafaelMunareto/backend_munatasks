@@ -1,5 +1,5 @@
-import * as Yup from 'yup';
-import Tasks from '../models/Tasks';
+const Yup = require('yup');
+const Tasks = require('../models/Tasks');
 
 class TasksController {
   async index(req, res) {

@@ -1,8 +1,8 @@
-import { Router } from 'express';
-import SettingsController from '../controllers/SettingsController';
-import authMiddleware from '../middlewares/auth';
+const express = require('express');
+const SettingsController = require('../controllers/SettingsController');
+const authMiddleware = require('../middlewares/auth');
 
-const routes = new Router();
+const routes = express.Router();
 
 function checkBody(req, res, next) {
   if (!req.body) {

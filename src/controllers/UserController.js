@@ -1,6 +1,6 @@
-import * as Yup from 'yup';
-import bcrypt from 'bcryptjs/dist/bcrypt';
-import User from '../models/User';
+const Yup = require('yup');
+const bcrypt = require('bcryptjs/dist/bcrypt');
+const User = require('../models/User');
 
 class UserController {
   async index(req, res) {

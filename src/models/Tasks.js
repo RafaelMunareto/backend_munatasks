@@ -1,21 +1,21 @@
-import { Schema, model } from 'mongoose';
+const mongo = require('mongoose');
 
-const TasksSchema = new Schema(
+const TasksSchema = new mongo.Schema(
   {
     data: Date,
-    etiqueta: { type: Schema.Types.ObjectId, ref: 'Etiquetas' },
+    etiqueta: { type: mongo.Schema.Types.ObjectId, ref: 'Etiquetas' },
     fase: Number,
     prioridade: Number,
     subtarefa: [
       {
         title: String,
         status: String,
-        user: { type: Schema.Types.ObjectId, ref: 'User' },
+        user: { type: mongo.Schema.Types.ObjectId, ref: 'User' },
         texto: String,
       },
     ],
     texto: String,
-    users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    users: [{ type: mongo.Schema.Types.ObjectId, ref: 'User' }],
   },
   {
     toJSON: {
@@ -24,4 +24,4 @@ const TasksSchema = new Schema(
   }
 );
 
-export default model('Tasks', TasksSchema);
+export default mongo.model('Tasks', TasksSchema);

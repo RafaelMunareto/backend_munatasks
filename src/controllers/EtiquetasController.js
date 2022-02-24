@@ -1,5 +1,5 @@
-import * as Yup from 'yup';
-import Etiquetas from '../models/Etiquetas';
+const Yup = require('yup');
+const Etiquetas = require('../models/Etiquetas');
 
 class EtiquetasController {
   async index(req, res) {

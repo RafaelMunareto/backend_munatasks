@@ -1,12 +1,12 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import path from 'path';
-import cors from 'cors';
-import user_routes from './routes/user.routes';
-import etiqueta_routes from './routes/etiquetas.routes';
-import perfil_routes from './routes/perfil.routes';
-import settings_routes from './routes/settings.routes';
-import tasks_routes from './routes/tasks.routes';
+const express = require('express');
+const mongoose = require('mongoose');
+const path = require('path');
+const cors = require('cors');
+const user_routes = require('./routes/user.routes');
+const etiqueta_routes = require('./routes/etiquetas.routes');
+const perfil_routes = require('./routes/perfil.routes');
+const settings_routes = require('./routes/settings.routes');
+const tasks_routes = require('./routes/tasks.routes');
 
 class App {
   constructor() {

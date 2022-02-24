@@ -1,0 +1,1 @@
+{"version":"1.0.0","name":"munatasks_backend","dependencies":{"bcryptjs":{"version":"2.4.3"},"cors":{"version":"2.8.5"},"express":{"version":"4.17.3"},"jsonwebtoken":{"version":"8.5.1"},"mongoose":{"version":"6.2.2"},"multer":{"version":"1.4.4"},"pg-hstore":{"version":"2.3.4"},"pg":{"version":"7.18.2"},"sequelize":{"version":"5.22.5"},"yup":{"version":"0.32.11"}}}

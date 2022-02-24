@@ -1,10 +1,11 @@
-import { Router } from 'express';
-import multer from 'multer';
-import uploadConfig from '../config/upload';
-import PerfilController from '../controllers/PerfilController';
-import authMiddleware from '../middlewares/auth';
+const express = require('express');
+const multer = require('multer');
+const authMiddleware = require('../middlewares/auth');
+const uploadConfig = require('../config/upload');
+const PerfilController = require('../controllers/PerfilController');
 
-const routes = new Router();
+const routes = express.Router();
+
 const upload = multer(uploadConfig);
 
 function checkBody(req, res, next) {

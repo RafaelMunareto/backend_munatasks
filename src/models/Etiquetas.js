@@ -1,9 +1,9 @@
-import { Schema, model } from 'mongoose';
+const mongo = require('mongoose');
 
-const EtiquetaSchema = new Schema({
+const EtiquetaSchema = new mongo.Schema({
   etiqueta: String,
   color: String,
   icon: Number,
 });
 
-export default model('Etiquetas', EtiquetaSchema);
+export default mongo.model('Etiquetas', EtiquetaSchema);

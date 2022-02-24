@@ -1,8 +1,8 @@
-import { Router } from 'express';
-import EtiquetasController from '../controllers/EtiquetasController';
-import authMiddleware from '../middlewares/auth';
+const express = require('express');
+const EtiquetasController = require('../controllers/EtiquetasController');
+const authMiddleware = require('../middlewares/auth');
 
-const routes = new Router();
+const routes = express.Router();
 
 function checkEtiqueta(req, res, next) {
   if (!req.body) {
