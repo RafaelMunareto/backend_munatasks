@@ -4,7 +4,8 @@ import User from '../models/User';
 
 class UserController {
   async index(req, res) {
-    const data = await User.find().populate('name');
+    const data = await User.find({}, ['name', 'email', 'id']);
+
     return res.json(data);
   }
 

@@ -5,6 +5,8 @@ import cors from 'cors';
 import user_routes from './routes/user.routes';
 import etiqueta_routes from './routes/etiquetas.routes';
 import perfil_routes from './routes/perfil.routes';
+import settings_routes from './routes/settings.routes';
+import tasks_routes from './routes/tasks.routes';
 
 class App {
   constructor() {
@@ -35,6 +37,8 @@ class App {
     this.server.use(user_routes);
     this.server.use(etiqueta_routes);
     this.server.use(perfil_routes);
+    this.server.use(settings_routes);
+    this.server.use(tasks_routes);
   }
 }
 

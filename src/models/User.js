@@ -13,9 +13,6 @@ const UserSchema = new Schema(
     },
   }
 );
-UserSchema.virtual('password_hash').get(function (password) {
-  this._password = password;
-});
 
 UserSchema.pre('save', async function save(next) {
   if (!this.isModified('password')) return next();
