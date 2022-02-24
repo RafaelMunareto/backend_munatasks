@@ -1,6 +1,5 @@
 import * as Yup from 'yup';
 import Tasks from '../models/Tasks';
-import User from '../models/User';
 
 class TasksController {
   async index(req, res) {
@@ -24,13 +23,27 @@ class TasksController {
   }
 
   async total(req, res) {
-    const data = await User.find().populate([
-      'etiqueta',
-      'users',
-      'subtarefa.user',
-    ]);
+    const data = await Tasks.find().populate('users').lean();
 
-    return res.json(data);
+    const data2 = data.reduce(
+      (memory, res2) => [
+        ...memory,
+        ...res2.users.reduce(
+          (memory2, user) => [...memory2, { ...user, tarefa: res2.texto }],
+          []
+        ),
+      ],
+      []
+    );
+
+    const cont_tarefas = [...new Set(data2.map((d) => d._id))].map((n) => ({
+      id: n,
+      name: data2.find((f) => f._id === n).name,
+      qtd: data2.filter((f) => f._id === n).length,
+      tarefa: data.filter((f) => f.users.some((u) => u._id === n)),
+    }));
+
+    return res.json(cont_tarefas);
   }
 
   async fase(req, res) {
@@ -39,12 +52,6 @@ class TasksController {
       'users',
       'subtarefa.user',
     ]);
-
-    return res.json(data);
-  }
-
-  async total(req, res) {
-    const data = await Tasks.find().populate('etiqueta').populate('users');
 
     return res.json(data);
   }
