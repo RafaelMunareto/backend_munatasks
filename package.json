@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/server.js",
-    "start": "node src/server.js",
+    "start": "sucrase-node src/server.js",
     "lint": "eslint --fix src --ext .js,.jsx ."
+  },
+  "engines": {
+    "node": "16.4"
   },
   "keywords": [],
   "author": "",
-  "type": "module",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
