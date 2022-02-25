@@ -55,4 +55,4 @@ class EtiquetasController {
   }
 }
 
-module.exports = EtiquetasController();
+module.exports = new EtiquetasController();
