@@ -112,4 +112,4 @@ class TasksController {
   }
 }
 
-export default new TasksController();
+module.exports = TasksController();

@@ -29,4 +29,4 @@ routes.post('/settings', SettingsController.store);
 routes.put('/settings/:id', checkBody, checkId, SettingsController.update);
 routes.delete('/settings/:id', checkId, SettingsController.destroy);
 
-export default routes;
+module.exports = routes;

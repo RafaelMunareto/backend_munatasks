@@ -6,4 +6,4 @@ const EtiquetaSchema = new mongo.Schema({
   icon: Number,
 });
 
-export default mongo.model('Etiquetas', EtiquetaSchema);
+module.exports = mongo.model('Etiquetas', EtiquetaSchema);

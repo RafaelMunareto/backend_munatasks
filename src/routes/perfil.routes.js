@@ -40,4 +40,4 @@ routes.put(
 );
 routes.delete('/perfil/:id', checkId, PerfilController.destroy);
 
-export default routes;
+module.exports = routes;

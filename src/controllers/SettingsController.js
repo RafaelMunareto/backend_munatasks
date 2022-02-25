@@ -29,4 +29,4 @@ class SettingsController {
   }
 }
 
-export default new SettingsController();
+module.exports = SettingsController();

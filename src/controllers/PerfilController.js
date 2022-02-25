@@ -74,4 +74,4 @@ class PerfilController {
   }
 }
 
-export default new PerfilController();
+module.exports = PerfilController();

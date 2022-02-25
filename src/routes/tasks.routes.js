@@ -31,4 +31,4 @@ routes.post('/tasks', TasksController.store);
 routes.put('/tasks/:id', checkBody, checkId, TasksController.update);
 routes.delete('/tasks/:id', checkId, TasksController.destroy);
 
-export default routes;
+module.exports = routes;

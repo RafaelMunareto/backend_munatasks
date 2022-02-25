@@ -32,4 +32,4 @@ routes.put(
 );
 routes.delete('/usuarios/:id', checkIdUSer, UserController.destroy);
 
-export default routes;
+module.exports = routes;

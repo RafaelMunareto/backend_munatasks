@@ -17,4 +17,4 @@ const SettingsSchema = new mongo.Schema(
   }
 );
 
-export default mongo.model('Settings', SettingsSchema);
+module.exports = mongo.model('Settings', SettingsSchema);

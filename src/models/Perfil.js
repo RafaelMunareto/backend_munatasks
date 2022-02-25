@@ -19,4 +19,4 @@ PerfilSchema.virtual('PerfilUrlImage').get(function () {
   return `http://localhost:3333/files/${this.urlImage}`;
 });
 
-export default mongo.model('Perfil', PerfilSchema);
+module.exports = mongo.model('Perfil', PerfilSchema);

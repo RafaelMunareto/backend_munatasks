@@ -24,4 +24,4 @@ const TasksSchema = new mongo.Schema(
   }
 );
 
-export default mongo.model('Tasks', TasksSchema);
+module.exports = mongo.model('Tasks', TasksSchema);

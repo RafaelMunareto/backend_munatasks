@@ -32,4 +32,4 @@ routes.put(
 );
 routes.delete('/etiquetas/:id', checkIdEtiqueta, EtiquetasController.destroy);
 
-export default routes;
+module.exports = routes;
