@@ -29,4 +29,4 @@ class SessionController {
   }
 }
 
-module.exports = SessionController();
+module.exports = new SessionController();
