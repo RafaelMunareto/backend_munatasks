@@ -3,7 +3,7 @@ const Etiquetas = require('../models/Etiquetas');
 
 class EtiquetasController {
   async index(req, res) {
-    const data = await Etiquetas.find();
+    const data = await Etiquetas.find().sort('etiqueta');
     return res.json(data);
   }
 
