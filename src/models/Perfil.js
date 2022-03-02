@@ -16,7 +16,7 @@ const PerfilSchema = new mongo.Schema(
 );
 
 PerfilSchema.virtual('PerfilUrlImage').get(function () {
-  return `http://localhost:3333/files/${this.urlImage}`;
+  return `https://munatasks.herokuapp.com/files/${this.urlImage}`;
 });
 
 module.exports = mongo.model('Perfil', PerfilSchema);
