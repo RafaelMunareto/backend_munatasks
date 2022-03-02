@@ -18,7 +18,7 @@ class PerfilController {
     const { filename } = req.file;
     const { idStaff, name, nameTime, manager } = req.body;
     const schema = Yup.object().shape({
-      idStaff: Yup.array().required(),
+      // idStaff: Yup.array().required(),
       name: Yup.string().min(3).required(),
       nameTime: Yup.string().min(3).required(),
       manager: Yup.boolean().required(),
