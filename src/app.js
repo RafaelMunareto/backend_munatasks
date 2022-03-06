@@ -2,11 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
-const user_routes = require('./routes/user.routes');
-const etiqueta_routes = require('./routes/etiquetas.routes');
-const perfil_routes = require('./routes/perfil.routes');
-const settings_routes = require('./routes/settings.routes');
-const tasks_routes = require('./routes/tasks.routes');
+const route = require('./route.routes');
 
 class App {
   constructor() {
@@ -34,11 +30,7 @@ class App {
   }
 
   routes() {
-    this.server.use(user_routes);
-    this.server.use(etiqueta_routes);
-    this.server.use(perfil_routes);
-    this.server.use(settings_routes);
-    this.server.use(tasks_routes);
+    this.server.use(route);
   }
 }
 

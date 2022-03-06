@@ -15,7 +15,7 @@ const PerfilSchema = new mongo.Schema(
   }
 );
 
-PerfilSchema.virtual('PerfilUrlImage').get(function () {
+PerfilSchema.virtual('perfilUrlImage').get(function () {
   return `https://munatasks.herokuapp.com/files/${this.urlImage}`;
 });
 
