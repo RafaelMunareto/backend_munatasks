@@ -23,9 +23,9 @@ function checkId(req, res, next) {
   req.id = id;
   return next();
 }
+routes.get('/perfil/:id', checkId, PerfilController.show);
 routes.use(authMiddleware);
 routes.get('/perfil', PerfilController.index);
-routes.get('/perfil/:id', checkId, PerfilController.show);
 routes.post(
   '/perfil',
   checkBody,
