@@ -15,7 +15,7 @@ const TasksSchema = new mongo.Schema(
       },
     ],
     texto: String,
-    users: [{ type: mongo.Schema.Types.ObjectId, ref: 'User' }],
+    users: [{ type: mongo.Schema.Types.ObjectId, ref: 'Perfil' }],
   },
   {
     toJSON: {
