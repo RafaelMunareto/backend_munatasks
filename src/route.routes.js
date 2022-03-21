@@ -33,6 +33,7 @@ routes.post('/usuarios', UserController.store);
 routes.get('/perfil/:id', checkId, PerfilController.show);
 routes.get('/perfil', PerfilController.index);
 
+routes.use(authMiddleware);
 routes.get('/usuarios', UserController.index);
 routes.get('/usuarios/:id', checkId, UserController.show);
 routes.put(
