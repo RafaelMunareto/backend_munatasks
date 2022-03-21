@@ -5,8 +5,18 @@ class TasksController {
   async index(req, res) {
     const data = await Tasks.find().populate([
       'etiqueta',
-      'users',
-      'subtarefa.user',
+      {
+        path: 'subtarefa.user',
+        populate: {
+          path: 'name',
+        },
+      },
+      {
+        path: 'users',
+        populate: {
+          path: 'name',
+        },
+      },
     ]);
 
     return res.json(data);
