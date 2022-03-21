@@ -10,7 +10,7 @@ const TasksSchema = new mongo.Schema(
       {
         title: String,
         status: String,
-        user: { type: mongo.Schema.Types.ObjectId, ref: 'User' },
+        user: { type: mongo.Schema.Types.ObjectId, ref: 'Perfil' },
         texto: String,
       },
     ],
