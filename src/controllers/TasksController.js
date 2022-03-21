@@ -33,7 +33,6 @@ class TasksController {
   }
 
   async total(req, res) {
-    console.log(req.id);
     const data = await Tasks.find({ name: req.id }).populate('users').lean();
 
     const data2 = data.reduce(
