@@ -33,7 +33,8 @@ class TasksController {
   }
 
   async total(req, res) {
-    const data = await Tasks.find().populate('users').lean();
+    console.log(req.id);
+    const data = await Tasks.find({ name: req.id }).populate('users').lean();
 
     const data2 = data.reduce(
       (memory, res2) => [
@@ -57,11 +58,23 @@ class TasksController {
   }
 
   async fase(req, res) {
-    const data = await Tasks.find({ fase: req.params.fase }).populate([
-      'etiqueta',
-      'users',
-      'subtarefa.user',
-    ]);
+    const data = await Tasks.find({ id: req.id })
+      .find({ fase: req.params.fase })
+      .populate([
+        'etiqueta',
+        {
+          path: 'subtarefa.user',
+          populate: {
+            path: 'name',
+          },
+        },
+        {
+          path: 'users',
+          populate: {
+            path: 'name',
+          },
+        },
+      ]);
 
     return res.json(data);
   }
