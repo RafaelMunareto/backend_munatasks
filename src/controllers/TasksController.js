@@ -33,7 +33,23 @@ class TasksController {
   }
 
   async total(req, res) {
-    const data = await Tasks.find({ name: req.id }).populate('users').lean();
+    const data = await Tasks.find({ name: req.id })
+      .populate([
+        'etiqueta',
+        {
+          path: 'subtarefa.user',
+          populate: {
+            path: 'name',
+          },
+        },
+        {
+          path: 'users',
+          populate: {
+            path: 'name',
+          },
+        },
+      ])
+      .lean();
 
     const data2 = data.reduce(
       (memory, res2) => [
@@ -48,7 +64,7 @@ class TasksController {
 
     const cont_tarefas = [...new Set(data2.map((d) => d._id))].map((n) => ({
       id: n,
-      name: data2.find((f) => f._id === n).name,
+      name: data2.find((f) => f._id === n),
       qtd: data2.filter((f) => f._id === n).length,
       tarefa: data.filter((f) => f.users.some((u) => u._id === n)),
     }));
