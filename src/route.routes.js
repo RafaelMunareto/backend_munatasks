@@ -24,7 +24,7 @@ function checkId(req, res, next) {
   if (!id) {
     return res.status(400).json({ error: 'Id obrigatorio.' });
   }
-  req.id = id;
+  req._id = id;
   return next();
 }
 
