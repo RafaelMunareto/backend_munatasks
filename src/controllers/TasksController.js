@@ -54,10 +54,7 @@ class TasksController {
     const data2 = data.reduce(
       (memory, res2) => [
         ...memory,
-        ...res2.users.reduce(
-          (memory2, user) => [...memory2, { ...user, tarefa: res2.texto }],
-          []
-        ),
+        ...res2.users.reduce((memory2, user) => [...memory2, { ...user }], []),
       ],
       []
     );
