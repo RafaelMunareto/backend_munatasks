@@ -33,7 +33,7 @@ class TasksController {
   }
 
   async total(req, res) {
-    const data = await Tasks.find({ name: req.id })
+    const data = await Tasks.find()
       .populate([
         'etiqueta',
         {
