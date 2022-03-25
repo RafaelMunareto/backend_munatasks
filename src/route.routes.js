@@ -24,13 +24,14 @@ function checkId(req, res, next) {
   if (!id) {
     return res.status(400).json({ error: 'Id obrigatorio.' });
   }
-  req._id = id;
+  req.id = id;
   return next();
 }
 
 routes.post('/sessions', SessionController.store);
 routes.post('/usuarios', UserController.store);
 routes.get('/perfil/:id', checkId, PerfilController.show);
+routes.get('/perfil/user/:id', checkId, PerfilController.showUser);
 routes.get('/perfil', PerfilController.index);
 
 routes.use(authMiddleware);
