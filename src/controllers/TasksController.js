@@ -3,7 +3,7 @@ const Tasks = require('../models/Tasks');
 
 class TasksController {
   async index(req, res) {
-    const data = await Tasks.find({ name: req._id }).populate([
+    const data = await Tasks.find({ name: req.id }).populate([
       'etiqueta',
       {
         path: 'subtarefa.user',
@@ -70,7 +70,7 @@ class TasksController {
   }
 
   async fase(req, res) {
-    const data = await Tasks.find({ id: req.id })
+    const data = await Tasks.find({ users: req.id })
       .find({ fase: req.params.fase })
       .populate([
         'etiqueta',
@@ -128,16 +128,15 @@ class TasksController {
       etiqueta: Yup.string().required(),
       fase: Yup.number().required(),
       prioridade: Yup.number().required(),
-      subTarefa: Yup.array().of(Yup.string().required()),
       texto: Yup.string().min(3).required(),
-      users: Yup.array().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Falha na validação.' });
     }
 
-    const task = await Tasks.updateOne({ _id: req.id }, data);
+    const task = await Tasks.findById(req.id);
+    await task.update(data);
     return res.json(task);
   }
 
