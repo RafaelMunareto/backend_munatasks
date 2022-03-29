@@ -13,10 +13,15 @@ class PerfilController {
   }
 
   async showUser(req, res) {
-    console.log(req.id);
-    const data = await Perfil.find({ name: req.id })
-      .populate('name')
-      .populate('idStaff');
+    const data = await Perfil.find({ name: req.id }).populate([
+      'name',
+      {
+        path: 'idStaff',
+        populate: {
+          path: 'name',
+        },
+      },
+    ]);
     return res.json(data);
   }
 
@@ -59,16 +64,14 @@ class PerfilController {
       return res.status(400).json({ error: 'Falha na validação.' });
     }
 
-    const perfil = await Perfil.updateOne(
-      { _id: req.id },
-      {
-        urlImage: filename,
-        idStaff,
-        name,
-        nameTime,
-        manager,
-      }
-    );
+    const perfil = await Perfil.findById(req.id);
+    await perfil.update({
+      urlImage: filename,
+      idStaff,
+      name,
+      nameTime,
+      manager,
+    });
 
     return res.json(perfil);
   }

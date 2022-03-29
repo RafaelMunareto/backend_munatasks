@@ -3,7 +3,7 @@ const Tasks = require('../models/Tasks');
 
 class TasksController {
   async index(req, res) {
-    const data = await Tasks.find({ name: req.id }).populate([
+    const data = await Tasks.find({ users: req.id }).populate([
       'etiqueta',
       {
         path: 'subtarefa.user',
