@@ -38,6 +38,7 @@ routes.use(authMiddleware);
 routes.get('/usuarios', UserController.index);
 routes.get('/usuarios/:id', checkId, UserController.show);
 routes.put('/usuarios/:id', checkId, UserController.update);
+routes.put('/usuarios/user/:id', checkId, UserController.updateUserName);
 routes.delete('/usuarios/:id', checkId, UserController.destroy);
 
 routes.get('/etiquetas', EtiquetasController.index);

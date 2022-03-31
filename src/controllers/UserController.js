@@ -41,6 +41,25 @@ class UserController {
     return res.json(user);
   }
 
+  async updateUserName(req, res) {
+    const { name } = req.body;
+    const schema = Yup.object().shape({
+      name: Yup.string().min(3).required(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Falha na validação.' });
+    }
+
+    const user = await User.findById(req.id);
+
+    await await user.updateOne({
+      name,
+    });
+
+    return res.json(user);
+  }
+
   async update(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string(),

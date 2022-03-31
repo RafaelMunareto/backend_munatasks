@@ -51,7 +51,7 @@ class PerfilController {
   }
 
   async update(req, res) {
-    const { filename } = req.file;
+    const { filename } = req.file ?? '';
     const { idStaff, name, nameTime, manager } = req.body;
 
     const schema = Yup.object().shape({
@@ -65,13 +65,19 @@ class PerfilController {
     }
 
     const perfil = await Perfil.findById(req.id);
-    await perfil.update({
-      urlImage: filename,
-      idStaff,
-      name,
-      nameTime,
-      manager,
-    });
+
+    if (req.file == '') {
+      await perfil.updateOne({
+        urlImage: filename,
+      });
+    } else {
+      await perfil.updateOne({
+        idStaff,
+        name,
+        nameTime,
+        manager,
+      });
+    }
 
     return res.json(perfil);
   }
