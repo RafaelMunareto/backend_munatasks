@@ -55,6 +55,7 @@ routes.delete('/settings/:id', checkId, SettingsController.destroy);
 
 routes.get('/tasks/individual/:id', checkId, TasksController.index);
 routes.get('/tasks/total', TasksController.total);
+routes.get('/tasks/mail/enviar_email', TasksController.sendmail);
 routes.get('/tasks/fase/:id/:fase', checkId, TasksController.fase);
 routes.get('/tasks/:id', checkId, TasksController.show);
 routes.post('/tasks', TasksController.store);
