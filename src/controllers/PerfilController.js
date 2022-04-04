@@ -53,20 +53,8 @@ class PerfilController {
   async update(req, res) {
     const { filename } = req.file ?? '';
     const { idStaff, name, nameTime, manager } = req.body;
-
-    const schema = Yup.object().shape({
-      name: Yup.string().min(3).required(),
-      nameTime: Yup.string().min(3).required(),
-      manager: Yup.boolean().required(),
-    });
-
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Falha na validação.' });
-    }
-
     const perfil = await Perfil.findById(req.id);
-
-    if (req.file == '') {
+    if (req.file != '') {
       await perfil.updateOne({
         urlImage: filename,
       });
