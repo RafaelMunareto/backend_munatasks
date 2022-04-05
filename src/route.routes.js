@@ -71,9 +71,11 @@ routes.post(
 routes.put(
   '/perfil/:id',
   checkId,
+  //uploadDeleteAnterior.single('urlImage'),
   upload.single('urlImage'),
   PerfilController.update
 );
+
 routes.delete('/perfil/:id', checkId, PerfilController.destroy);
 
 module.exports = routes;

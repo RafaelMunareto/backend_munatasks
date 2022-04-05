@@ -7,19 +7,11 @@ module.exports = {
     filename: (req, file, cb) => {
       const ext = path.extname(file.originalname);
       const name = path.basename(file.originalname, ext);
-      const id = name.split('-')[0];
-      const nameDelete = path.basename(name.split('.')[0], ext);
-      const dest = path.resolve(
-        __dirname,
-        '..',
-        '..',
-        'uploads',
-        `${nameDelete}${ext}`
-      );
+      const dest = path.resolve(__dirname, '..', '..', 'uploads') + name + ext;
+      console.log(dest);
       if (fs.existsSync(dest)) {
-        fs.unlinkSync(dest);
+        fs.unlink(dest);
       }
-      cb(null, `${id}-${Date.now()}${ext}`);
     },
   }),
 };
