@@ -21,7 +21,11 @@ class App {
   }
 
   middlewares() {
-    this.server.use(cors());
+    var corsSettings = {
+      origin: '*',
+      optionsSuccessStatus: 200,
+    };
+    this.server.use(cors(corsSettings));
     this.server.use(
       '/files',
       express.static(path.resolve(__dirname, '..', 'uploads'))
