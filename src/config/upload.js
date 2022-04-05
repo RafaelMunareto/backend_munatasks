@@ -12,7 +12,7 @@ module.exports = {
         fs.unlink(dest);
       }
 
-      cb(null, `${name}-${ext}`);
+      cb(null, `${name}${ext}`);
     },
   }),
 };
