@@ -33,6 +33,12 @@ routes.post('/usuarios', UserController.store);
 routes.get('/perfil/:id', checkId, PerfilController.show);
 routes.get('/perfil/user/:id', checkId, PerfilController.showUser);
 routes.get('/perfil', PerfilController.index);
+routes.post(
+  '/perfil',
+  checkBody,
+  upload.single('urlImage'),
+  PerfilController.store
+);
 
 routes.use(authMiddleware);
 routes.get('/usuarios', UserController.index);
@@ -62,12 +68,6 @@ routes.post('/tasks', TasksController.store);
 routes.put('/tasks/:id', checkBody, checkId, TasksController.update);
 routes.delete('/tasks/:id', checkId, TasksController.destroy);
 
-routes.post(
-  '/perfil',
-  checkBody,
-  upload.single('urlImage'),
-  PerfilController.store
-);
 routes.put(
   '/perfil/:id',
   checkId,

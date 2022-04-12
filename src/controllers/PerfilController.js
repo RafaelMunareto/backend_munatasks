@@ -26,26 +26,31 @@ class PerfilController {
   }
 
   async store(req, res) {
-    const { filename } = req.file;
+    const { filename } = req.file ?? '';
     const { idStaff, name, nameTime, manager } = req.body;
-    const schema = Yup.object().shape({
-      // idStaff: Yup.array().required(),
-      name: Yup.string().min(3).required(),
-      nameTime: Yup.string().min(3).required(),
-      manager: Yup.boolean().required(),
-    });
 
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Falha na validação.' });
+    const userExists = await Perfil.findOne({ name: name });
+
+    if (userExists !== null) {
+      return res.status(400).json({ error: 'Perfil já existe.' });
     }
 
-    const perfil = await Perfil.create({
-      urlImage: filename,
-      idStaff,
-      name,
-      nameTime,
-      manager,
-    });
+    if (req.file == '') {
+      var perfil = await Perfil.create({
+        idStaff,
+        name,
+        nameTime,
+        manager,
+      });
+    } else {
+      var perfil = await Perfil.create({
+        urlImage: filename,
+        idStaff,
+        name,
+        nameTime,
+        manager,
+      });
+    }
 
     return res.json(perfil);
   }
