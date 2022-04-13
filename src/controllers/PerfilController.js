@@ -58,13 +58,20 @@ class PerfilController {
   async update(req, res) {
     const { filename } = req.file ?? '';
     const { idStaff, name, nameTime, manager } = req.body;
+
     const perfil = await Perfil.findById(req.id);
-    if (req.file != '') {
+
+    if (typeof filename === 'undefined') {
+      console.log(req.body);
       await perfil.updateOne({
-        urlImage: filename,
+        idStaff,
+        name,
+        nameTime,
+        manager,
       });
     } else {
       await perfil.updateOne({
+        urlImage: filename,
         idStaff,
         name,
         nameTime,
