@@ -35,8 +35,6 @@ class PerfilController {
       return res.status(400).json({ error: 'Perfil já existe.' });
     }
 
-    console.log(req.file);
-
     if (req.file == '') {
       var perfil = await Perfil.create({
         idStaff,
