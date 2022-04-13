@@ -1,6 +1,5 @@
 const Yup = require('yup');
 const Tasks = require('../models/Tasks');
-const mailConfig = require('../config/mail');
 
 class TasksController {
   async index(req, res) {
@@ -144,24 +143,6 @@ class TasksController {
   async destroy(req, res) {
     await Tasks.findByIdAndDelete({ _id: req.id });
     return res.json('Deletado com sucesso!');
-  }
-
-  async sendmail(req, res) {
-    let retorno = await mailConfig.enviarEmail(
-      'Mumu',
-      'rodrigo.r.costa@caixa.gov.br',
-      'Teste do Teste',
-      `<html>
-        <body>
-          <b>Teste de Email do Mumu agora simmm</b>
-          <br/> <br/>
-          Agora tentanto html
-        </body>
-      </html>`
-    );
-
-    // return res.json('teste');
-    return res.json(retorno);
   }
 }
 

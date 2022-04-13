@@ -33,6 +33,11 @@ routes.post('/usuarios', UserController.store);
 routes.get('/perfil/:id', checkId, PerfilController.show);
 routes.get('/perfil/user/:id', checkId, PerfilController.showUser);
 routes.get('/perfil', PerfilController.index);
+routes.get(
+  '/usuarios/mail/change_password/:email',
+  UserController.sendChangePasswordmail
+);
+routes.put('/usuarios/change_password/:id', UserController.updatePassword);
 routes.post(
   '/perfil',
   checkBody,
@@ -61,7 +66,6 @@ routes.delete('/settings/:id', checkId, SettingsController.destroy);
 
 routes.get('/tasks/individual/:id', checkId, TasksController.index);
 routes.get('/tasks/total', TasksController.total);
-routes.get('/tasks/mail/enviar_email', TasksController.sendmail);
 routes.get('/tasks/fase/:id/:fase', checkId, TasksController.fase);
 routes.get('/tasks/:id', checkId, TasksController.show);
 routes.post('/tasks', TasksController.store);
@@ -71,7 +75,6 @@ routes.delete('/tasks/:id', checkId, TasksController.destroy);
 routes.put(
   '/perfil/:id',
   checkId,
-  //uploadDeleteAnterior.single('urlImage'),
   upload.single('urlImage'),
   PerfilController.update
 );
