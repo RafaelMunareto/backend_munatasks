@@ -62,7 +62,6 @@ class PerfilController {
     const perfil = await Perfil.findById(req.id);
 
     if (typeof filename === 'undefined') {
-      console.log(req.body);
       await perfil.updateOne({
         idStaff,
         name,
