@@ -19,8 +19,9 @@ class SettingsController {
 
   async update(req, res) {
     const data = req.body;
-    const result = await Settings.updateOne({ _id: req.id }, data);
-    return res.json(result);
+    const settings = await Settings.findById(req.id);
+    await settings.updateOne(data);
+    return res.json(settings);
   }
 
   async destroy(req, res) {

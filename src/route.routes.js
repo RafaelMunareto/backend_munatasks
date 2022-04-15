@@ -31,6 +31,7 @@ function checkId(req, res, next) {
 routes.post('/sessions', SessionController.store);
 routes.post('/usuarios', UserController.store);
 routes.get('/perfil/:id', checkId, PerfilController.show);
+routes.get('/usuarios/:id', checkId, UserController.show);
 routes.get('/perfil/user/:id', checkId, PerfilController.showUser);
 routes.get('/perfil', PerfilController.index);
 routes.get(
@@ -47,7 +48,6 @@ routes.post(
 
 routes.use(authMiddleware);
 routes.get('/usuarios', UserController.index);
-routes.get('/usuarios/:id', checkId, UserController.show);
 routes.put('/usuarios/:id', checkId, UserController.update);
 routes.put('/usuarios/user/:id', checkId, UserController.updateUserName);
 routes.delete('/usuarios/:id', checkId, UserController.destroy);

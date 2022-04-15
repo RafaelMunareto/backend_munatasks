@@ -11,8 +11,13 @@ class UserController {
   }
 
   async show(req, res) {
-    const data = await User.findById(req.id);
-    return res.json(data);
+    await User.findById(req.id, function (err, doc) {
+      if (err) {
+        return res.status(403);
+      } else if (doc) {
+        return res.json(data);
+      }
+    });
   }
 
   async store(req, res) {
