@@ -10,28 +10,18 @@ class UserController {
     return res.json(data);
   }
 
+  async showEmail(req, res) {
+    const user = await User.findOne({ email: req.id });
+    res.status(200).json(user);
+  }
+
   async show(req, res) {
-    await User.findById(req.id, function (err, doc) {
-      if (err) {
-        return res.status(403);
-      } else if (doc) {
-        return res.json(data);
-      }
-    });
+    const user = await User.findById(req.id);
+    res.json(user);
   }
 
   async store(req, res) {
     const { email, name, password } = req.body;
-    const schema = Yup.object().shape({
-      name: Yup.string().min(3).required(),
-      email: Yup.string().email().required(),
-      password: Yup.string().required().min(6),
-    });
-
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Falha na validação.' });
-    }
-
     const userExists = await User.findOne({ email });
 
     if (userExists !== null) {
