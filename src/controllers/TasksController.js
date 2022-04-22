@@ -6,9 +6,9 @@ class TasksController {
   async index(req, res) {
     var perfil = await Perfil.findById(req.id);
     if (perfil.idStaff == null) {
-      perfil.idStaff = [req.id];
+      perfil.idStaff = await [req.id];
     } else {
-      perfil.idStaff = perfil.idStaff.push(req.id);
+      perfil.idStaff = await perfil.idStaff.push(req.id);
     }
     const data = await Tasks.find({
       users: { $in: perfil.idStaff },
@@ -28,7 +28,7 @@ class TasksController {
       },
     ]);
 
-    return res.json(perfil.idStaff);
+    return res.json(data);
   }
 
   async show(req, res) {
