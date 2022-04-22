@@ -1,9 +1,13 @@
 const Yup = require('yup');
+const Perfil = require('../models/Perfil');
 const Tasks = require('../models/Tasks');
 
 class TasksController {
   async index(req, res) {
-    const data = await Tasks.find({ users: req.id }).populate([
+    var perfil = await Perfil.findById(req.id);
+    const data = await Tasks.find({
+      users: { $in: perfil.idStaff },
+    }).populate([
       'etiqueta',
       {
         path: 'subtarefa.user',
@@ -19,7 +23,7 @@ class TasksController {
       },
     ]);
 
-    return res.json(data);
+    return res.json(perfil.idStaff);
   }
 
   async show(req, res) {
@@ -70,7 +74,13 @@ class TasksController {
   }
 
   async fase(req, res) {
-    const data = await Tasks.find({ users: req.id })
+    var perfil = await Perfil.findById(req.id);
+    if (perfil.idStaff == null) {
+      perfil.idStaff = [req.id];
+    } else {
+      perfil.idStaff = perfil.idStaff.push(req.id);
+    }
+    const task = await Tasks.find({ users: { $in: perfil.idStaff } })
       .find({ fase: req.params.fase })
       .populate([
         'etiqueta',
@@ -88,7 +98,7 @@ class TasksController {
         },
       ]);
 
-    return res.json(data);
+    return res.json(task);
   }
 
   async store(req, res) {
