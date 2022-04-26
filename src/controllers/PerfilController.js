@@ -22,6 +22,9 @@ class PerfilController {
         },
       },
     ]);
+    if (data.urlImage == undefined) {
+      data[0].urlImage = 'person.png';
+    }
     return res.json(data);
   }
 
@@ -37,6 +40,7 @@ class PerfilController {
 
     if (req.file == '') {
       var perfil = await Perfil.create({
+        urlImage: 'person.png',
         idStaff,
         name,
         nameTime,
@@ -58,7 +62,6 @@ class PerfilController {
   async update(req, res) {
     const { filename } = req.file ?? '';
     const { idStaff, name, nameTime, manager } = req.body;
-
     const perfil = await Perfil.findById(req.id);
 
     if (typeof filename === 'undefined') {
