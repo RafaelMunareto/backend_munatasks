@@ -22,14 +22,12 @@ class PerfilController {
         },
       },
     ]);
-    if (data.urlImage == undefined) {
-      data[0].urlImage = 'person.png';
-    }
+
     return res.json(data);
   }
 
   async store(req, res) {
-    const { filename } = req.file ?? '';
+    const { filename } = req.file ?? 'person.png';
     const { idStaff, name, nameTime, manager } = req.body;
 
     const userExists = await Perfil.findOne({ name: name });
@@ -38,48 +36,30 @@ class PerfilController {
       return res.status(400).json({ error: 'Perfil já existe.' });
     }
 
-    if (req.file == '') {
-      var perfil = await Perfil.create({
-        urlImage: 'person.png',
-        idStaff,
-        name,
-        nameTime,
-        manager,
-      });
-    } else {
-      var perfil = await Perfil.create({
-        urlImage: filename,
-        idStaff,
-        name,
-        nameTime,
-        manager,
-      });
-    }
+    var perfil = await Perfil.create({
+      urlImage: filename == undefined ? 'person.png' : filename,
+      idStaff,
+      name,
+      nameTime,
+      manager,
+    });
 
     return res.json(perfil);
   }
 
   async update(req, res) {
-    const { filename } = req.file ?? '';
+    const { filename } = req.file ?? 'person.png';
     const { idStaff, name, nameTime, manager } = req.body;
     const perfil = await Perfil.findById(req.id);
 
-    if (typeof filename === 'undefined') {
-      await perfil.updateOne({
-        idStaff,
-        name,
-        nameTime,
-        manager,
-      });
-    } else {
-      await perfil.updateOne({
-        urlImage: filename,
-        idStaff,
-        name,
-        nameTime,
-        manager,
-      });
-    }
+    console.log(filename);
+    await perfil.updateOne({
+      urlImage: filename == undefined ? 'person.png' : filename,
+      idStaff,
+      name,
+      nameTime,
+      manager,
+    });
 
     return res.json(perfil);
   }
