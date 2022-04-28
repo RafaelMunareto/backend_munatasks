@@ -52,7 +52,6 @@ class PerfilController {
     const { idStaff, name, nameTime, manager } = req.body;
     const perfil = await Perfil.findById(req.id);
 
-    console.log(filename);
     await perfil.updateOne({
       urlImage: filename == undefined ? 'person.png' : filename,
       idStaff,

@@ -454,7 +454,6 @@ class UserController {
           <body class="">
             <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body">
               <tr>
-                <td>&nbsp;</td>
                 <td class="container">
                   <div class="header">
                     <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -488,7 +487,7 @@ class UserController {
                                         <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                           <tbody>
                                             <tr>
-                                              <td> <a href="https://deeplinking.localhost?code=${user[0].id}" target="_blank">Clique Aqui!</a> </td>
+                                              <td> <a href="https://localhost/#/auth/change/?code=${user[0].id}" target="_blank">Clique Aqui!</a> </td>
                                             </tr>
                                           </tbody>
                                         </table>
