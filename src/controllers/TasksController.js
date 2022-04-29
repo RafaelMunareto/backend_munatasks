@@ -6,10 +6,11 @@ class TasksController {
   async index(req, res) {
     var perfil = await Perfil.findById(req.id);
     if (perfil.idStaff == null) {
-      perfil.idStaff = await [req.id];
+      perfil.idStaff = [req.id];
     } else {
       perfil.idStaff = await perfil.idStaff.push(req.id);
     }
+
     const data = await Tasks.find({
       users: { $in: perfil.idStaff },
     }).populate([
