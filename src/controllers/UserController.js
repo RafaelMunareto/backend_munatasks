@@ -487,7 +487,7 @@ class UserController {
                                         <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                           <tbody>
                                             <tr>
-                                              <td> <a href="https://localhost/#/auth/change/?code=${user[0].id}" target="_blank">Clique Aqui!</a> </td>
+                                              <td> <a href="http://munatask.com/#/auth/change/?code=${user[0].id}" target="_blank">Clique Aqui!</a> </td>
                                             </tr>
                                           </tbody>
                                         </table>

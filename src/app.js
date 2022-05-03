@@ -38,5 +38,8 @@ class App {
     this.server.use(route);
   }
 }
+const app = new App();
 
-module.exports = new App().server;
+module.exports = app.server;
+
+// module.exports = new App().server;
