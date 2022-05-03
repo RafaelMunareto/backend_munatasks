@@ -27,7 +27,7 @@ class PerfilController {
   }
 
   async store(req, res) {
-    const { filename } = req.file ?? 'person.png';
+    const { filename } = req.body.file ?? 'person.png';
     const { idStaff, name, nameTime, manager } = req.body;
 
     const userExists = await Perfil.findOne({ name: name });
@@ -52,8 +52,8 @@ class PerfilController {
     const { idStaff, name, nameTime, manager } = req.body;
     const perfil = await Perfil.findById(req.id);
 
-    await perfil.updateOne({
-      urlImage: filename == undefined ? 'person.png' : filename,
+    await perfil.update({
+      urlImage: filename,
       idStaff,
       name,
       nameTime,
