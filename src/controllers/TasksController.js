@@ -74,7 +74,7 @@ class TasksController {
       name: data2.find((f) => f._id === n),
       qtd: data2.filter((f) => f._id === n).length,
       tarefa: data.filter((f) => f.users.some((u) => u._id === n)),
-    }));
+    })).sort((a, b) => (a.tarefa > b.tarefa) ? 1 : -1)
 
     return res.json(cont_tarefas);
   }
