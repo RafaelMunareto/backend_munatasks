@@ -194,8 +194,8 @@ class TasksController {
       return res.json('Nenhuma tarefa encontrada');
     } else {
       for (var i = 0; i < task.users.length; i++) {
-        await Notifications.create({
-          user: task.users,
+        Notifications.create({
+          user: task.users[i].id,
           texto: task.texto,
         });
         mailConfig.enviarEmail(
@@ -207,6 +207,19 @@ class TasksController {
       }
       return res.json('Email enviado com sucesso!');
     }
+  }
+
+  async notifications(req, res) {
+    const data = await Notifications.find({
+      user: req.id,
+    }).populate('user');
+
+    return res.json(data);
+  }
+
+  async notificationsDelete(req, res) {
+    await Notifications.find({ user: req.id }).remove();
+    return res.json('Deletado com sucesso!');
   }
 }
 
