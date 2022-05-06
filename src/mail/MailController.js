@@ -410,7 +410,7 @@ class MailController {
         </html>`;
   }
 
-  notificacao(tarefa) {
+  notificacao(tarefa, tipo) {
     return `<html>
         <head>
           <meta name="viewport" content="width=device-width" />
@@ -772,7 +772,7 @@ class MailController {
                               <td>
                                 <p class='cumprimento'>&nbsp; Olá! </p>
                                 <br>
-                                <p>&nbsp; Você recebeu uma nova tarefa:</p>
+                                ${tipo != '1' ?'<p>&nbsp; Você recebeu uma nova tarefa:</p>' : '<p>&nbsp; Você finalizou uma tarefa:</p>'}                  
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="card">
                                   <tbody>
                                    <br>

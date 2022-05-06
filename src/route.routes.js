@@ -72,7 +72,7 @@ routes.get('/tasks/:id', checkId, TasksController.show);
 routes.post('/tasks', TasksController.store);
 routes.put('/tasks/:id', checkBody, checkId, TasksController.update);
 routes.delete('/tasks/:id', checkId, TasksController.destroy);
-routes.get('/tasks/new_email/:id', checkId, TasksController.sendNewTarefa);
+routes.get('/tasks/new_email/:id/:tipo', checkId, TasksController.sendNewTarefa);
 
 routes.get('/tasks/notifications/:id', checkId, TasksController.notifications);
 routes.delete(
@@ -87,6 +87,10 @@ routes.put(
   upload.single('urlImage'),
   PerfilController.update
 );
+
+routes.get('/perfil/settingsUser/:id', checkId, PerfilController.settingsUser);
+routes.put('/perfil/settingsUser/:id', checkBody, checkId, PerfilController.settingsUserUpdate);
+routes.post('/perfil/settingsUser', checkBody, PerfilController.settingsUserStore);
 
 routes.delete('/perfil/:id', checkId, PerfilController.destroy);
 

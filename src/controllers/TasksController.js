@@ -198,12 +198,22 @@ class TasksController {
           user: task.users[i].id,
           texto: task.texto,
         });
-        mailConfig.enviarEmail(
-          'MunaTasks',
-          task.users[i].name.email,
-          'Nova Tarefa criada',
-          mailController.notificacao(task.texto)
-        );
+        if(req.params.tipo == '1'){
+          mailConfig.enviarEmail(
+            'MunaTasks',
+            task.users[i].name.email,
+            'Tarefa finalizada!',
+            mailController.notificacao(task.texto,  req.params.tipo)
+          );
+        } else {
+          mailConfig.enviarEmail(
+            'MunaTasks',
+            task.users[i].name.email,
+            'Nova Tarefa criada',
+            mailController.notificacao(task.texto, req.params.tipo)
+          );
+          
+        }
       }
       return res.json('Email enviado com sucesso!');
     }
@@ -212,7 +222,10 @@ class TasksController {
   async notifications(req, res) {
     const data = await Notifications.find({
       user: req.id,
-    }).populate('user');
+    });
+    if (data == null) {
+      return res.json();
+    }
 
     return res.json(data);
   }
