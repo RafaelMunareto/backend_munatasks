@@ -1,8 +1,6 @@
 class MailController {
-
-    forgetSenha(user)
-    {
-        return `<html>
+  forgetSenha(user) {
+    return `<html>
           <head>
             <meta name="viewport" content="width=device-width" />
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -409,12 +407,11 @@ class MailController {
 
 
           </body>
-        </html>`
-    }
+        </html>`;
+  }
 
-    notificacao(tarefa)
-    {
-        return `<html>
+  notificacao(tarefa) {
+    return `<html>
         <head>
           <meta name="viewport" content="width=device-width" />
           <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -739,6 +736,12 @@ class MailController {
                 background-color: blue !important;
                 border-color: blue !important;
               }
+              .card {
+                background-color: #eaeafa;
+                padding: rem;
+                border-radius: 10px;
+
+              }
             }
           </style>
         </head>
@@ -778,7 +781,7 @@ class MailController {
                                         <a href="http://munatask.com/"  style='text-decoration:none' target="_blank">
                                         <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                           <tbody>
-                                            
+
                                             <tr>
                                               <td style='text-align:center; color: black; padding:2rem'> ${tarefa} </td>
                                             </tr>
@@ -824,7 +827,8 @@ class MailController {
 
 
           </body>
-      </html>`
-    }
-
+      </html>`;
+  }
 }
+
+module.exports = new MailController();

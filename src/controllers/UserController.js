@@ -2,6 +2,7 @@ const Yup = require('yup');
 const bcrypt = require('bcryptjs/dist/bcrypt');
 const User = require('../models/User');
 const mailConfig = require('../config/mail');
+const mailController = require('../mail/MailController');
 
 class UserController {
   async index(req, res) {
@@ -123,13 +124,12 @@ class UserController {
         'MunaTasks',
         email,
         'Alteração de senha Munatasks',
-        MailController.forgetSenha(user[0].id)
+        mailController.forgetSenha(user[0].id)
       );
 
       return res.json('Email enviado com sucesso!');
     }
   }
-
 }
 
 module.exports = new UserController();

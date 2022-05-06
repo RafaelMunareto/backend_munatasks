@@ -8,7 +8,9 @@ class PerfilController {
   }
 
   async show(req, res) {
-    const data = await Perfil.findById(req.id).populate('name').populate('idStaff');
+    const data = await Perfil.findById(req.id)
+      .populate('name')
+      .populate('idStaff');
     return res.json(data);
   }
 

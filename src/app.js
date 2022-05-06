@@ -10,7 +10,7 @@ class App {
 
     mongoose.connect(
       //'mongodb+srv://munatasks:102030@munatasks.kmbgs.mongodb.net/munatasks?retryWrites=true&w=majority',
-      'mongodb://localhost:27017/web-app',
+       'mongodb://localhost:27017/web-app',
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
