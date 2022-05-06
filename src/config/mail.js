@@ -8,6 +8,8 @@ module.exports = {
       smtpTransport({
         service: 'gmail',
         host: 'smtp.gmail.com',
+        port: 587,
+        secure: false, 
         auth: {
           user: 'rafaelmmunareto@gmail.com',
           pass: 'Rafa007986',

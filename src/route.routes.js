@@ -72,6 +72,7 @@ routes.get('/tasks/:id', checkId, TasksController.show);
 routes.post('/tasks', TasksController.store);
 routes.put('/tasks/:id', checkBody, checkId, TasksController.update);
 routes.delete('/tasks/:id', checkId, TasksController.destroy);
+routes.get('/tasks/new_email/:id', checkId, TasksController.sendNewTarefa);
 
 routes.put(
   '/perfil/:id',

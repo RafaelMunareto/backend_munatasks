@@ -1,6 +1,8 @@
 const Yup = require('yup');
 const Perfil = require('../models/Perfil');
 const Tasks = require('../models/Tasks');
+const mailConfig = require('../config/mail');
+const mailController = require('../mail/MailController');
 
 class TasksController {
   async index(req, res) {
@@ -69,18 +71,23 @@ class TasksController {
       []
     );
 
-    const cont_tarefas = [...new Set(data2.map((d) => d._id))].map((n) => ({
-      id: n,
-      name: data2.find((f) => f._id === n),
-      qtd: data2.filter((f) => f._id === n).length,
-      tarefa: data.filter((f) => f.users.some((u) => u._id === n)),
-    }));
+    const cont_tarefas = [...new Set(data2.map((d) => d._id))]
+      .map((n) => ({
+        id: n,
+        name: data2.find((f) => f._id === n),
+        qtd: data2.filter((f) => f._id === n).length,
+        tarefa: data.filter((f) => f.users.some((u) => u._id === n)),
+      }))
+      .sort((a, b) => (a.qtd < b.qtd ? 1 : -1));
 
     return res.json(cont_tarefas);
   }
 
   async fase(req, res) {
     var perfil = await Perfil.findById(req.id);
+    if (perfil == null) {
+      return res.json('Perfil não encontrado!');
+    }
     if (perfil.idStaff == null) {
       perfil.idStaff = [req.id];
     } else {
@@ -159,6 +166,38 @@ class TasksController {
   async destroy(req, res) {
     await Tasks.findByIdAndDelete({ _id: req.id });
     return res.json('Deletado com sucesso!');
+  }
+
+  async sendNewTarefa(req, res) {
+    const idTask = req.params.id;
+    const task = await Tasks.findById(idTask).populate([
+      'etiqueta',
+      {
+        path: 'subtarefa.user',
+        populate: {
+          path: 'name',
+        },
+      },
+      {
+        path: 'users',
+        populate: {
+          path: 'name',
+        },
+      },
+    ]);
+    if (task == null) {
+      return res.json('Nenhuma tarefa encontrada');
+    } else {
+      for (var i = 0; i < task.users.length; i++) {
+        mailConfig.enviarEmail(
+          'MunaTasks',
+          task.users[i].name.email,
+          'Nova Tarefa criada',
+          mailController.notificacao(task.texto)
+        );
+      }
+      return res.json('Email enviado com sucesso!');
+    }
   }
 }
 
