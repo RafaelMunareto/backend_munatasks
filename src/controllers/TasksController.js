@@ -135,13 +135,17 @@ class TasksController {
     }
 
     if (!check) {
-      check = await Tasks.create(data);
+      Tasks.create(data, (err, data) => {
+        if (err) {
+          return res.status(500).send({ err });
+        }
+        return res.status(200).json(data);
+      });
     } else {
       return res
         .status(400)
         .json({ error: 'Texto da etiqueta já está na base.' });
     }
-    return res.json(`Tarefa ${texto} Salva com sucesso`);
   }
 
   async update(req, res) {
