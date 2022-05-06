@@ -74,6 +74,13 @@ routes.put('/tasks/:id', checkBody, checkId, TasksController.update);
 routes.delete('/tasks/:id', checkId, TasksController.destroy);
 routes.get('/tasks/new_email/:id', checkId, TasksController.sendNewTarefa);
 
+routes.get('/tasks/notifications/:id', checkId, TasksController.notifications);
+routes.delete(
+  '/tasks/notifications/:id',
+  checkId,
+  TasksController.notificationsDelete
+);
+
 routes.put(
   '/perfil/:id',
   checkId,
