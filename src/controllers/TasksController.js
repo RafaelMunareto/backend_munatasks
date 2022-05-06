@@ -169,10 +169,10 @@ class TasksController {
     if (task.lenth != null) {
       return res.json('Email não encontrado.');
     }else {
-      task.usersforEach(element => {
+      for(var i = 0; i < task.users.length;i++){
         await mailConfig.enviarEmail(
         'MunaTasks',
-        element.name.email,
+        task.users[i].name.email,
         'Nova Tarefa criada',
         MailController.notificacao(task[0].texto)
       );
