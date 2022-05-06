@@ -1,6 +1,7 @@
 const Yup = require('yup');
 const Perfil = require('../models/Perfil');
 const Tasks = require('../models/Tasks');
+const mailConfig = require('../config/mail');
 
 class TasksController {
   async index(req, res) {
@@ -159,6 +160,26 @@ class TasksController {
   async destroy(req, res) {
     await Tasks.findByIdAndDelete({ _id: req.id });
     return res.json('Deletado com sucesso!');
+  }
+
+  
+  async sendNewTarefa(req, res) {
+    const idTask = req.params.id;
+    const task = Task.findById(idTask);
+    if (task.lenth != null) {
+      return res.json('Email não encontrado.');
+    }else {
+      task.usersforEach(element => {
+        await mailConfig.enviarEmail(
+        'MunaTasks',
+        element.name.email,
+        'Nova Tarefa criada',
+        MailController.notificacao(task[0].texto)
+      );
+
+    });
+      return res.json('Email enviado com sucesso!');
+    }
   }
 }
 
