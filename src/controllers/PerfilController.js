@@ -8,7 +8,9 @@ class PerfilController {
   }
 
   async show(req, res) {
-    const data = await Perfil.find(req.id).populate('name').populate('idStaff');
+    const data = await Perfil.findById(req.id)
+      .populate('name')
+      .populate('idStaff');
     return res.json(data);
   }
 
@@ -52,7 +54,7 @@ class PerfilController {
     const { idStaff, name, nameTime, manager } = req.body;
     const perfil = await Perfil.findById(req.id);
 
-    await perfil.update({
+    await perfil.updateOne({
       urlImage: filename,
       idStaff,
       name,

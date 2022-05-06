@@ -8,6 +8,7 @@ const TasksSchema = new mongo.Schema(
     prioridade: Number,
     subtarefa: [
       {
+        id: String,
         title: String,
         status: String,
         user: { type: mongo.Schema.Types.ObjectId, ref: 'Perfil' },
