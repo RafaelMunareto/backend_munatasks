@@ -3,6 +3,7 @@ const Perfil = require('../models/Perfil');
 const Tasks = require('../models/Tasks');
 const mailConfig = require('../config/mail');
 const mailController = require('../mail/MailController');
+const Notifications = require('../models/Notifications');
 
 class TasksController {
   async index(req, res) {
@@ -193,6 +194,10 @@ class TasksController {
       return res.json('Nenhuma tarefa encontrada');
     } else {
       for (var i = 0; i < task.users.length; i++) {
+        await Notifications.create({
+          user: task.users,
+          texto: task.texto,
+        });
         mailConfig.enviarEmail(
           'MunaTasks',
           task.users[i].name.email,
