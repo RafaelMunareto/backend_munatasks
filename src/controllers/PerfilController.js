@@ -94,8 +94,7 @@ class PerfilController {
 
   async settingsUserStore(req, res) {
     const settings = await SettingsUser.create(req.body);
-    const data = await SettingsUser.find({user: req.body.id});
-    return res.json(data);
+    return res.json(req.body);
   }
 }
 
