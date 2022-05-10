@@ -35,6 +35,31 @@ class TasksController {
     return res.json(data);
   }
 
+  async tasksFilterUser(req, res) {
+    var perfil = await Perfil.findById(req.id);
+    console.log(perfil.id);
+    
+    const data = await Tasks.find({
+      users: perfil.id,
+    }).populate([
+      'etiqueta',
+      {
+        path: 'subtarefa.user',
+        populate: {
+          path: 'name',
+        },
+      },
+      {
+        path: 'users',
+        populate: {
+          path: 'name',
+        },
+      },
+    ]);
+
+    return res.json(data);
+  }
+
   async show(req, res) {
     const data = await Tasks.findById(req.id).populate([
       'etiqueta',
@@ -46,7 +71,7 @@ class TasksController {
   }
 
   async total(req, res) {
-    const data = await Tasks.find()
+    const tasks = await Tasks.find()
       .populate([
         'etiqueta',
         {
@@ -64,24 +89,18 @@ class TasksController {
       ])
       .lean();
 
-    const data2 = data.reduce(
-      (memory, res2) => [
-        ...memory,
-        ...res2.users.reduce((memory2, user) => [...memory2, { ...user }], []),
-      ],
-      []
-    );
+    const allUsers = await Perfil.find().populate('name').populate('idStaff').lean();
+    return res.json(
+      allUsers.map(user => {
+        const filteredTasks = tasks.filter(task => task.users.some(u => u._id.equals(user._id)))
+        return {
+        id: user._id,
+        name: user,
+        qtd: filteredTasks.length,
+        tarefa: filteredTasks
+      }})
+    )
 
-    const cont_tarefas = [...new Set(data2.map((d) => d._id))]
-      .map((n) => ({
-        id: n,
-        name: data2.find((f) => f._id === n),
-        qtd: data2.filter((f) => f._id === n).length,
-        tarefa: data.filter((f) => f.users.some((u) => u._id === n)),
-      }))
-      .sort((a, b) => (a.qtd < b.qtd ? 1 : -1));
-
-    return res.json(cont_tarefas);
   }
 
   async fase(req, res) {

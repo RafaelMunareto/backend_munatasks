@@ -71,6 +71,7 @@ routes.get('/tasks/fase/:id/:fase', checkId, TasksController.fase);
 routes.get('/tasks/:id', checkId, TasksController.show);
 routes.post('/tasks', TasksController.store);
 routes.put('/tasks/:id', checkBody, checkId, TasksController.update);
+routes.get('/tasks/filter_user/:id', checkId, TasksController.tasksFilterUser);
 routes.delete('/tasks/:id', checkId, TasksController.destroy);
 routes.get('/tasks/new_email/:id/:tipo', checkId, TasksController.sendNewTarefa);
 
