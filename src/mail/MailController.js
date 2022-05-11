@@ -4,7 +4,7 @@ class MailController {
           <head>
             <meta name="viewport" content="width=device-width" />
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-            <title>Munatasks Alteração de senha!</title>
+            <title>Munatask Alteração de senha!</title>
             <style type="text/css">
               img {
                 border: none;
@@ -355,7 +355,7 @@ class MailController {
                               <td>
                                 <p class='cumprimento'>&nbsp; Olá! </p>
                                 <br>
-                                <p>&nbsp; Se você solicitou uma alteração de senha para o sistema Munatasks clique abaixo:</p>
+                                <p>&nbsp; Se você solicitou uma alteração de senha para o sistema Munatask clique abaixo:</p>
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                                   <tbody>
                                    <br>
@@ -390,7 +390,7 @@ class MailController {
                       <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                         <tr>
                           <td class="content-block">
-                            <span class="apple-link"><a href="https://munatasks.com">Equipe MunaTasks</a></span>
+                            <span class="apple-link"><a href="http://munatask.com">Equipe MunaTask</a></span>
                           </td>
                         </tr>
 
@@ -415,7 +415,7 @@ class MailController {
         <head>
           <meta name="viewport" content="width=device-width" />
           <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-          <title>Munatasks Alteração de senha!</title>
+          <title>Munatask Alteração de senha!</title>
           <style type="text/css">
             img {
               border: none;
@@ -810,7 +810,7 @@ class MailController {
                       <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                         <tr>
                           <td class="content-block">
-                            <span class="apple-link"><a href="https://munatasks.com">Equipe MunaTasks</a></span>
+                            <span class="apple-link"><a href="https://munatask.com">Equipe MunaTask</a></span>
                           </td>
                         </tr>
 

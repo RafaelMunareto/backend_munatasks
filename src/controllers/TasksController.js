@@ -250,7 +250,7 @@ class TasksController {
   }
 
   async notificationsDelete(req, res) {
-    await Notifications.find({ user: req.id }).remove();
+    await Notifications.find({ user: req.id }).deleteOne();
     return res.json('Deletado com sucesso!');
   }
 }

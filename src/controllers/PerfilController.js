@@ -4,8 +4,18 @@ const SettingsUser = require('../models/SettingsUser');
 
 class PerfilController {
   async index(req, res) {
-    const data = await Perfil.find().populate('name').populate('idStaff');
-    return res.json(data);
+    const data = await Perfil.find().populate([
+      'name',
+      {
+        path: 'idStaff',
+        populate: {
+          path: 'name',
+        },
+      },
+    ]);
+    
+    const dataSort = data.sort((a, b) => a.name.name.localeCompare(b.name.name));
+    return res.json(dataSort);
   }
 
   async show(req, res) {
