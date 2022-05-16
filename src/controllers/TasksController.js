@@ -92,7 +92,7 @@ class TasksController {
     const allUsers = await Perfil.find().populate('name').populate('idStaff').lean();
     return res.json(
       allUsers.map(user => {
-        const filteredTasks = tasks.filter(task => task.users.some(u => u._id.equals(user._id)))
+        const filteredTasks = tasks.filter(task => task.users.some(u => u._id.equals(user._id))).filter((b) => b.fase < 2)
         return {
         id: user._id,
         name: user,
