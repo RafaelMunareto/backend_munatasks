@@ -26,12 +26,12 @@ class App {
       origin: '*',
       optionsSuccessStatus: 200,
     };
-    this.server.use(cors(corsSettings));
     this.server.use(
       '/files',
       express.static(path.resolve(__dirname, '..', 'uploads'))
     );
     this.server.use(express.json());
+    this.server.use(cors(corsSettings));
   }
 
   routes() {

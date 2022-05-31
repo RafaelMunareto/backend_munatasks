@@ -33,7 +33,6 @@ routes.post('/usuarios', UserController.store);
 routes.get('/perfil/:id', checkId, PerfilController.show);
 routes.get('/usuarios/email/:id', checkId, UserController.showEmail);
 routes.get('/usuarios/:id', checkId, UserController.show);
-routes.get('/perfil/user/:id', checkId, PerfilController.showUser);
 routes.get('/perfil', PerfilController.index);
 routes.get(
   '/usuarios/mail/change_password/:email',
@@ -47,7 +46,16 @@ routes.post(
   PerfilController.store
 );
 
+routes.put(
+  '/perfil/:id',
+  checkId,
+  upload.single('urlImage'),
+  PerfilController.update
+);
+
+
 routes.use(authMiddleware);
+routes.get('/perfil/user/:id', checkId, PerfilController.showUser);
 routes.get('/usuarios', UserController.index);
 routes.put('/usuarios/:id', checkId, UserController.update);
 routes.put('/usuarios/user/:id', checkId, UserController.updateUserName);
@@ -82,12 +90,6 @@ routes.delete(
   TasksController.notificationsDelete
 );
 
-routes.put(
-  '/perfil/:id',
-  checkId,
-  upload.single('urlImage'),
-  PerfilController.update
-);
 
 routes.get('/perfil/settingsUser/:id', checkId, PerfilController.settingsUser);
 routes.put('/perfil/settingsUser/:id', checkBody, checkId, PerfilController.settingsUserUpdate);
