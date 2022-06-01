@@ -13,7 +13,7 @@ class PerfilController {
         },
       },
     ]);
-    
+
     const dataSort = data.sort((a, b) => a.name.name.localeCompare(b.name.name));
     return res.json(dataSort);
   }
@@ -61,17 +61,35 @@ class PerfilController {
   }
 
   async update(req, res) {
-    const { filename } = req.file ?? 'person.png';
+    const id = req.id
+    let urlImage;
+
+    if (req.file) {
+      urlImage = req.file.filename
+    }
+
     const { idStaff, name, nameTime, manager } = req.body;
+
+    if (req.body) {
+      const schema = Yup.object().shape({
+        name: Yup.string().min(3),
+        nameTime: Yup.string().min(3),
+        manager: Yup.boolean(),
+      });
+
+      if (!(await schema.isValid(req.body))) {
+        return res.status(400).json({ error: 'Falha na validação.' });
+      }
+
+    }
+
     const perfil = await Perfil.findById(req.id);
-    console.log(req.file);
-    await perfil.updateOne({
-      urlImage: filename,
-      idStaff,
-      name,
-      nameTime,
-      manager,
-    });
+
+    const updateValue = { urlImage, name, nameTime, manager }
+    const sanitizedUpdateValue = Object.fromEntries(Object.entries(updateValue).filter(([_, v]) => v != null))
+
+
+    await perfil.updateOne(sanitizedUpdateValue);
 
     return res.json(perfil);
   }
@@ -83,20 +101,20 @@ class PerfilController {
 
   async settingsUser(req, res) {
     const data = await SettingsUser.find({ user: req.id })
-    if(data != null){
+    if (data != null) {
       return res.json(data);
-    }else{
+    } else {
       return res.json('0');
     }
-    
+
   }
 
   async settingsUserUpdate(req, res) {
     const settings = await SettingsUser.find({ user: req.id });
     const data = req.body;
-    if(settings != null){
+    if (settings != null) {
       const settingsId = await SettingsUser.findById(settings[0].id);
-       await settingsId.updateOne(data);
+      await settingsId.updateOne(data);
     }
 
     return res.json(data);
