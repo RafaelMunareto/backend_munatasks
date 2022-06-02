@@ -37,7 +37,6 @@ class TasksController {
 
   async tasksFilterUser(req, res) {
     var perfil = await Perfil.findById(req.id);
-    console.log(perfil.id);
     
     const data = await Tasks.find({
       users: perfil.id,
@@ -104,7 +103,8 @@ class TasksController {
   }
 
   async fase(req, res) {
-    var perfil = await Perfil.findById(req.id);
+    var perfis = await Perfil.find();
+    var perfil = perfis.find(perfil => perfil.id == req.id);
     if (perfil == null) {
       return res.json('Perfil não encontrado!');
     }
@@ -113,7 +113,18 @@ class TasksController {
     } else {
       perfil.idStaff = perfil.idStaff.push(req.id);
     }
-    const task = await Tasks.find({ users: { $in: perfil.idStaff } })
+    const ids = [...new Set(
+        [
+          ...perfil.idStaff, 
+          ...perfil.idStaff.map(id => 
+              perfis
+                .filter(perfil => perfil.id == id)
+                .map(perfil => perfil.idStaff) 
+              )
+        ].flat()
+    )]
+
+    const task = await Tasks.find({ users: { $in: ids } })
       .find({ fase: req.params.fase })
       .populate([
         'etiqueta',
@@ -130,6 +141,8 @@ class TasksController {
           },
         },
       ]);
+
+      
 
     return res.json(task);
   }
