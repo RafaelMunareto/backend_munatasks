@@ -4,6 +4,7 @@ const Tasks = require('../models/Tasks');
 const mailConfig = require('../config/mail');
 const mailController = require('../mail/MailController');
 const Notifications = require('../models/Notifications');
+const io = require('../app').io;
 
 class TasksController {
   async index(req, res) {
@@ -198,12 +199,12 @@ class TasksController {
           user: task.users[i].id,
           texto: task.texto,
         });
-        if(req.params.tipo == '1'){
+        if (req.params.tipo == '1') {
           mailConfig.enviarEmail(
             'MunaTasks',
             task.users[i].name.email,
             'Tarefa finalizada!',
-            mailController.notificacao(task.texto,  req.params.tipo)
+            mailController.notificacao(task.texto, req.params.tipo)
           );
         } else {
           mailConfig.enviarEmail(
@@ -212,7 +213,7 @@ class TasksController {
             'Nova Tarefa criada',
             mailController.notificacao(task.texto, req.params.tipo)
           );
-          
+          io.emit('new_task', task);
         }
       }
       return res.json('Email enviado com sucesso!');
