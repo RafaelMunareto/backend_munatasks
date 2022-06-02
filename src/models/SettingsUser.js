@@ -5,7 +5,8 @@ const SettingsUserSchema = new mongo.Schema(
     user: String,
     emailInicial: Boolean,
     emailFinal: Boolean,
-    mobile: Boolean
+    mobile: Boolean,
+    theme: Boolean
   },
 
 );

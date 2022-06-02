@@ -7,8 +7,9 @@ module.exports = {
     filename: (req, file, cb) => {
       const ext = path.extname(file.originalname);
       const name = path.basename(file.originalname, ext);
-      const id = name.split('-')[0];
-      const nameDelete = path.basename(name.split('.')[0], ext);
+      const id = file.originalname.split('-')[0];
+      const extension = 'png';
+      const nameDelete = path.basename(name , ext);
       if (name == 'person.png') {
         const dest = path.resolve(
           __dirname,
@@ -24,7 +25,7 @@ module.exports = {
           '..',
           '..',
           'uploads',
-          `${nameDelete}${ext}`
+          `${nameDelete}.${extension}`
         );
         if (fs.existsSync(dest)) {
           fs.unlinkSync(dest);
@@ -34,3 +35,4 @@ module.exports = {
     },
   }),
 };
+

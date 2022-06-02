@@ -8,7 +8,7 @@ const SettingsSchema = new mongo.Schema(
     prioridade: [Number],
     retard: [{ tempoName: String, tempoValue: Number }],
     subtarefaInsert: [String],
-    version: Number,
+    version: [String],
   },
   {
     toJSON: {
