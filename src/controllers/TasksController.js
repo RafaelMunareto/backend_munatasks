@@ -4,7 +4,7 @@ const Tasks = require('../models/Tasks');
 const mailConfig = require('../config/mail');
 const mailController = require('../mail/MailController');
 const Notifications = require('../models/Notifications');
-const io = require('../app').io;
+const io = require('../config/io');
 
 class TasksController {
   async index(req, res) {
@@ -173,6 +173,10 @@ class TasksController {
         if (err) {
           return res.status(500).send({ err });
         }
+
+        io.emit('new_task', {data});
+
+   
         return res.status(200).json(data);
       });
     } else {
@@ -183,6 +187,7 @@ class TasksController {
   }
 
   async update(req, res) {
+  
     const data = req.body;
     const schema = Yup.object().shape({
       data: Yup.date().required(),
@@ -192,6 +197,8 @@ class TasksController {
       texto: Yup.string().min(3).required(),
     });
 
+   
+  
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Falha na validação.' });
     }
@@ -245,7 +252,6 @@ class TasksController {
             'Nova Tarefa criada',
             mailController.notificacao(task.texto, req.params.tipo)
           );
-          io.emit('new_task', task);
         }
       }
       return res.json('Email enviado com sucesso!');

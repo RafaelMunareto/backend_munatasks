@@ -13,7 +13,7 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      const socket = io('http://localhost:3000');
+      const socket = io('http://api.munatask.com');
 
       socket.on('new_task', (data) => {
         console.log(data);
