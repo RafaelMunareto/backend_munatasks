@@ -65,7 +65,7 @@ routes.get('/etiquetas', EtiquetasController.index);
 routes.get('/etiquetas/:id', checkId, EtiquetasController.show);
 routes.post('/etiquetas', EtiquetasController.store);
 routes.put('/etiquetas/:id', checkBody, checkId, EtiquetasController.update);
-routes.delete('/etiquetas/:id', checkBody, EtiquetasController.destroy);
+routes.delete('/etiquetas/:id', checkId, EtiquetasController.destroy);
 
 routes.get('/settings', SettingsController.index);
 routes.get('/settings/:id', checkId, SettingsController.show);

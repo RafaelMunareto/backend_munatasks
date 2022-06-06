@@ -44,13 +44,14 @@ class EtiquetasController {
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Falha na validação.' });
     }
-
-    const etiqueta = await Etiquetas.updateOne({ _id: req.id }, etiquetaBody);
+    const etiqueta = await Etiquetas.findById(req.id);
+    await etiqueta.updateOne(etiquetaBody);
     return res.json(etiqueta);
   }
 
   async destroy(req, res) {
-    await Etiquetas.findByIdAndDelete({ _id: req.id });
+    const etiqueta = await Etiquetas.findById(req.id);
+    etiqueta.delete();
     return res.json('Deletado com sucesso!');
   }
 }
