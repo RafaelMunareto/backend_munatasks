@@ -85,7 +85,7 @@ class PerfilController {
 
     const perfil = await Perfil.findById(req.id);
 
-    const updateValue = { urlImage, name, nameTime, manager }
+    const updateValue = { urlImage, name, nameTime, manager, idStaff }
     const sanitizedUpdateValue = Object.fromEntries(Object.entries(updateValue).filter(([_, v]) => v != null))
 
 
