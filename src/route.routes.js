@@ -8,6 +8,7 @@ const authMiddleware = require('./middlewares/auth');
 const uploadConfig = require('./config/upload');
 const EtiquetasController = require('./controllers/EtiquetasController');
 const PerfilController = require('./controllers/PerfilController');
+const RedirectDeepLinkController = require('./controllers/RedirectDeepLinkController');
 
 const routes = express.Router();
 const upload = multer(uploadConfig);
@@ -33,6 +34,7 @@ routes.post('/usuarios', UserController.store);
 routes.get('/perfil/:id', checkId, PerfilController.show);
 routes.get('/usuarios/email/:id', checkId, UserController.showEmail);
 routes.get('/usuarios/:id', checkId, UserController.show);
+routes.get('/redirect_veacos', RedirectDeepLinkController.redirectVeacos);
 routes.get('/perfil', PerfilController.index);
 routes.get(
   '/usuarios/mail/change_password/:email',

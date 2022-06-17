@@ -38,7 +38,7 @@ class TasksController {
 
   async tasksFilterUser(req, res) {
     var perfil = await Perfil.findById(req.id);
-    
+
     const data = await Tasks.find({
       users: perfil.id,
     }).populate([
@@ -94,11 +94,12 @@ class TasksController {
       allUsers.map(user => {
         const filteredTasks = tasks.filter(task => task.users.some(u => u._id.equals(user._id))).filter((b) => b.fase < 2)
         return {
-        id: user._id,
-        name: user,
-        qtd: filteredTasks.length,
-        tarefa: filteredTasks
-      }})
+          id: user._id,
+          name: user,
+          qtd: filteredTasks.length,
+          tarefa: filteredTasks
+        }
+      })
     )
 
   }
@@ -115,14 +116,14 @@ class TasksController {
       perfil.idStaff = perfil.idStaff.push(req.id);
     }
     const ids = [...new Set(
-        [
-          ...perfil.idStaff, 
-          ...perfil.idStaff.map(id => 
-              perfis
-                .filter(perfil => perfil.id == id)
-                .map(perfil => perfil.idStaff) 
-              )
-        ].flat()
+      [
+        ...perfil.idStaff,
+        ...perfil.idStaff.map(id =>
+          perfis
+            .filter(perfil => perfil.id == id)
+            .map(perfil => perfil.idStaff)
+        )
+      ].flat()
     )]
 
     const task = await Tasks.find({ users: { $in: ids } })
@@ -143,7 +144,7 @@ class TasksController {
         },
       ]);
 
-      
+
 
     return res.json(task);
   }
@@ -174,9 +175,9 @@ class TasksController {
           return res.status(500).send({ err });
         }
 
-        io.emit('new_task', {data});
+        io.emit('new_task', { data });
 
-   
+
         return res.status(200).json(data);
       });
     } else {
@@ -187,7 +188,7 @@ class TasksController {
   }
 
   async update(req, res) {
-  
+
     const data = req.body;
     const schema = Yup.object().shape({
       data: Yup.date().required(),
@@ -197,8 +198,8 @@ class TasksController {
       texto: Yup.string().min(3).required(),
     });
 
-   
-  
+
+
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Falha na validação.' });
     }

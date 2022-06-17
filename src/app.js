@@ -12,7 +12,6 @@ class App {
     this.serverHttp = http.createServer(this.server);
 
     mongoose.connect(
-      //areto@'mongodb+srv://munatasks:102030@munatasks.kmbgs.mongodb.net/munatasks?retryWrites=true&w=majority',
       'mongodb://localhost:27017/web-app',
       {
         useNewUrlParser: true,
@@ -23,9 +22,6 @@ class App {
     this.middlewares();
     this.routes();
 
-    // io.on('connection', (socket) => {
-    //   io.emit('new_task', {teste: 'teste'});
-    // });
   }
 
   middlewares() {

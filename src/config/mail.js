@@ -6,13 +6,12 @@ module.exports = {
   async enviarEmail(de = '"Munatasks" <foo@example.com>', para, assunto, body) {
     var transporter = nodemailer.createTransport(
       smtpTransport({
-        service: 'gmail',
-        host: 'smtp.gmail.com',
-        port: 587,
-        secure: false, 
+        host: 'smtp.hostinger.com',
+        port: 465,
+        secure: false,
         auth: {
-          user: 'rafaelmmunareto@gmail.com',
-          pass: 'Rafa007986',
+          user: 'suporte@munatask.com',
+          pass: 'Rafa007986*',
         },
       })
     );
