@@ -3,12 +3,12 @@ const smtpTransport = require('nodemailer-smtp-transport');
 
 // async..await is not allowed in global scope, must use a wrapper
 module.exports = {
-  async enviarEmail(de = '"Munatasks" <foo@example.com>', para, assunto, body) {
+  async enviarEmail(de = '"Munatasks" <suporte@munatask.com>', para, assunto, body) {
     var transporter = nodemailer.createTransport(
       smtpTransport({
         host: 'smtp.hostinger.com',
         port: 465,
-        secure: false,
+        secure: true,
         auth: {
           user: 'suporte@munatask.com',
           pass: 'Rafa007986*',
