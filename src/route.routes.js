@@ -79,6 +79,7 @@ routes.get('/tasks/individual/:id', checkId, TasksController.index);
 routes.get('/tasks/total/:id', checkId, TasksController.total);
 routes.get('/tasks/fase/:id/:fase', checkId, TasksController.fase);
 routes.get('/tasks/:id', checkId, TasksController.show);
+routes.get('/tasks', TasksController.indexTotal);
 routes.post('/tasks', TasksController.store);
 routes.put('/tasks/:id', checkBody, checkId, TasksController.update);
 routes.get('/tasks/filter_user/:id', checkId, TasksController.tasksFilterUser);

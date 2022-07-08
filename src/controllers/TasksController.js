@@ -6,7 +6,40 @@ const mailController = require('../mail/MailController');
 const Notifications = require('../models/Notifications');
 const io = require('../config/io');
 
+const recursivaPerfil = (perfis, id, result) => {
+  const perfil = perfis.find(perfil => perfil._id.equals(id));
+  if (!perfil) { return result }
+  const idStaff = perfil.idStaff || []
+  const filhos = idStaff.filter(id => !result.some(r => r.equals(id)))
+  result = [...result, id, ...filhos]
+  filhos.forEach(id => {
+    result = recursivaPerfil(perfis, id, result)
+  })
+  return result
+}
+
 class TasksController {
+
+  async indexTotal(req, res)
+  {
+    var totais = await Tasks.find().populate([
+      'etiqueta',
+      {
+        path: 'subtarefa.user',
+        populate: {
+          path: 'name',
+        },
+      },
+      {
+        path: 'users',
+        populate: {
+          path: 'name',
+        },
+      },
+    ]);
+
+    return res.json(totais);
+  }
 
 
   async index(req, res) {
@@ -20,16 +53,7 @@ class TasksController {
     } else {
       perfil.idStaff = perfil.idStaff.push(req.id);
     }
-    const ids = [...new Set(
-      [
-        ...perfil.idStaff,
-        ...perfil.idStaff.map(id =>
-          perfis
-            .filter(perfil => perfil.id == id)
-            .map(perfil => perfil.idStaff)
-        )
-      ].flat()
-    )].flat()
+    const ids = recursivaPerfil(perfis, perfil._id, [])
 
     const task = await Tasks.find({ users: { $in: ids } })
       .find()
@@ -89,18 +113,6 @@ class TasksController {
 
   async total(req, res) {
 
-    const recursivaPerfil = (perfis, id, result) => {
-      const perfil = perfis.find(perfil => perfil._id.equals(id));
-      if (!perfil) { return result }
-      const idStaff = perfil.idStaff || []
-      const filhos = idStaff.filter(id => !result.some(r => r.equals(id)))
-      result = [...result, id, ...filhos]
-      filhos.forEach(id => {
-        result = recursivaPerfil(perfis, id, result)
-      })
-      return result
-    }
-
     var perfis = await Perfil.find();
     var perfil = perfis.find(perfil => perfil.id == req.id);
     if (perfil == null) {
@@ -119,11 +131,7 @@ class TasksController {
       .populate([{ path: 'name' },
       ])
     const tasks = await Tasks.find({ users: { $in: ids } })
-
     const tarefasNaoFinalizadas = tasks.filter(task => task.fase < 2)
-
-
-    // return res.json(allUsers)
     const totalizadorPorUsuario = allUsers.map(user => {
       const filteredTasks = tarefasNaoFinalizadas.filter(task => task.users.some(u => u._id.equals(user._id)))
       const subtarefas = filteredTasks.reduce((m, v) => [...m, ...v.subtarefa], [])
@@ -137,7 +145,6 @@ class TasksController {
       }
     })
 
-
     return res.json(
       totalizadorPorUsuario
     )
@@ -146,17 +153,7 @@ class TasksController {
 
   async fase(req, res) {
 
-    const recursivaPerfil = (perfis, id, result) => {
-      const perfil = perfis.find(perfil => perfil._id.equals(id));
-      if (!perfil) { return result }
-      const idStaff = perfil.idStaff || []
-      const filhos = idStaff.filter(id => !result.some(r => r.equals(id)))
-      result = [...result, id, ...filhos]
-      filhos.forEach(id => {
-        result = recursivaPerfil(perfis, id, result)
-      })
-      return result
-    }
+
 
     var perfis = await Perfil.find();
     var perfil = perfis.find(perfil => perfil.id == req.id);
